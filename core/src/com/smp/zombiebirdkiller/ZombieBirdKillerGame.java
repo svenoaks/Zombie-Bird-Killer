@@ -10,8 +10,7 @@ import com.smp.zombiebirdkiller.assets.AssetHandler;
 import com.smp.zombiebirdkiller.game.GameScreen;
 
 public class ZombieBirdKillerGame extends Game
-{
-	
+{	
 	@Override
 	public void create()
 	{

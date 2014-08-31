@@ -1,6 +1,7 @@
 package com.smp.zombiebirdkiller.game;
 
 import com.badlogic.gdx.math.Circle;
+import static com.smp.zombiebirdkiller.assets.Constants.*;
 import com.badlogic.gdx.math.Vector2;
 
 public class Player extends GameObject
@@ -12,11 +13,12 @@ public class Player extends GameObject
 	private boolean isAlive;
 
 	private Circle boundingCircle;
-	
+
 	private int flapCycle;
 	private boolean flapping;
 
-	public Player(float x, float y, float width, float height) {
+	public Player(float x, float y, float width, float height)
+	{
 		this.width = width;
 		this.height = height;
 		this.originalY = y;
@@ -26,50 +28,55 @@ public class Player extends GameObject
 		boundingCircle = new Circle();
 		isAlive = true;
 	}
-	
+
 	@Override
-	public void update(float delta) {
-		
-		if (flapping) flap();
+	public void update(float delta)
+	{
 
-		velocity.add(acceleration.cpy().scl(delta));
+		if (flapping)
+			flap();
 
-		if (velocity.y > 200) {
+		if (velocity.y > 200)
+		{
 			velocity.y = 200;
 		}
-
-		// CEILING CHECK
-		if (position.y < 0) {
+		if (position.y < 0)
+		{
 			position.y = 0;
 			velocity.y = 0;
 		}
-		
-		//FLOOR CHECK
-		//TODO WHERE IS THE FLOOR LOL.
-		if (position.y > 180) {
-			position.y = 180;
+		else if (position.y > COORDINATE_GRASS_LOCATION_Y - DIMENSION_GRASS_HEIGHT)
+		{
+			position.y = COORDINATE_GRASS_LOCATION_Y - DIMENSION_GRASS_HEIGHT;
 			velocity.y = 0;
 		}
-
-		position.add(velocity.cpy().scl(delta));
+		else
+		{
+			velocity.add(acceleration.cpy().scl(delta));
+			position.add(velocity.cpy().scl(delta));
+		}
 
 		// Set the circle's center to be (9, 6) with respect to the bird.
 		// Set the circle's radius to be 6.5f;
 		boundingCircle.set(position.x + 9, position.y + 6, 6.5f);
 
 		// Rotate counterclockwise
-		if (velocity.y < 0) {
+		if (velocity.y < 0)
+		{
 			rotation -= 600 * delta;
 
-			if (rotation < -50) {
+			if (rotation < -50)
+			{
 				rotation = -50;
 			}
 		}
 
 		// Rotate clockwise
-		if (isFalling() || !isAlive) {
+		if (isFalling() || !isAlive)
+		{
 			rotation += 200 * delta;
-			if (rotation > 75) {
+			if (rotation > 75)
+			{
 				rotation = 75;
 			}
 
@@ -77,34 +84,42 @@ public class Player extends GameObject
 
 	}
 
-	public void updateReady(float runTime) {
+	public void updateReady(float runTime)
+	{
 		position.y = 2 * (float) Math.sin(7 * runTime) + originalY;
 	}
 
-	public boolean isFalling() {
+	public boolean isFalling()
+	{
 		return velocity.y > 110;
 	}
 
-	public boolean shouldntFlap() {
+	public boolean shouldntFlap()
+	{
 		return velocity.y > 70 || !isAlive;
 	}
 
-	public void flap() {
-		if (isAlive) {
+	public void flap()
+	{
+		if (isAlive)
+		{
 			velocity.y = -100;
 		}
 	}
 
-	public void die() {
+	public void die()
+	{
 		isAlive = false;
 		velocity.y = 0;
 	}
 
-	public void decelerate() {
+	public void decelerate()
+	{
 		acceleration.y = 0;
 	}
 
-	public void onRestart(int y) {
+	public void onRestart(int y)
+	{
 		rotation = 0;
 		position.y = y;
 		velocity.x = 0;
@@ -113,28 +128,27 @@ public class Player extends GameObject
 		acceleration.y = 460;
 		isAlive = true;
 	}
-	
-	
 
-	public Circle getBoundingCircle() {
+	public Circle getBoundingCircle()
+	{
 		return boundingCircle;
 	}
 
-	public boolean isAlive() {
+	public boolean isAlive()
+	{
 		return isAlive;
 	}
 
 	public void startFlapping()
 	{
 		flapping = true;
-		
+
 	}
 
 	public void stopFlapping()
 	{
 		flapping = false;
-		
-	}
 
+	}
 
 }
