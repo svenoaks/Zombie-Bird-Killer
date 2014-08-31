@@ -108,6 +108,9 @@ public class GameRenderer
 		// Draw Dirt
 		shapeRenderer.setColor(147 / 255.0f, 80 / 255.0f, 27 / 255.0f, 1);
 		shapeRenderer.rect(0, COORDINATE_DIRT_LOCATION_Y, DIMENSION_GAME_WIDTH, DIMENSION_DIRT_HEIGHT);
+		
+		shapeRenderer.setColor(147 / 255.0f, 80 / 255.0f, 27 / 255.0f, 1);
+		shapeRenderer.rect(player.getX(), player.getY(), player.getWidth(), player.getHeight());
 
 		shapeRenderer.end();
 

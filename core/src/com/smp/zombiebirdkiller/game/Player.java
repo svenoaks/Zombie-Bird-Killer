@@ -45,9 +45,9 @@ public class Player extends GameObject
 			position.y = 0;
 			velocity.y = 0;
 		}
-		else if (position.y > COORDINATE_GRASS_LOCATION_Y - DIMENSION_GRASS_HEIGHT)
+		else if (position.y > COORDINATE_GRASS_LOCATION_Y - height)
 		{
-			position.y = COORDINATE_GRASS_LOCATION_Y - DIMENSION_GRASS_HEIGHT;
+			position.y = COORDINATE_GRASS_LOCATION_Y - height;
 			velocity.y = 0;
 		}
 		else
