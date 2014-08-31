@@ -6,6 +6,8 @@ import com.badlogic.gdx.math.Vector2;
 
 public class Player extends GameObject
 {
+	private static final int ACCELERATION_GRAVITY_Y = 180;
+
 	private Vector2 acceleration;
 
 	private float originalY;
@@ -16,6 +18,7 @@ public class Player extends GameObject
 
 	private int flapCycle;
 	private boolean flapping;
+	private boolean atCeiling;
 
 	public Player(float x, float y, float width, float height)
 	{
@@ -24,7 +27,7 @@ public class Player extends GameObject
 		this.originalY = y;
 		position = new Vector2(x, y);
 		velocity = new Vector2(0, 0);
-		acceleration = new Vector2(0, 180);
+		acceleration = new Vector2(0, ACCELERATION_GRAVITY_Y);
 		boundingCircle = new Circle();
 		isAlive = true;
 	}
@@ -44,6 +47,7 @@ public class Player extends GameObject
 		{
 			position.y = 0;
 			velocity.y = 0;
+			atCeiling = true;
 		}
 		else if (position.y > COORDINATE_GRASS_LOCATION_Y - height)
 		{
@@ -52,7 +56,8 @@ public class Player extends GameObject
 		}
 		else
 		{
-			velocity.add(acceleration.cpy().scl(delta));
+			if (!atCeiling) 
+				velocity.add(acceleration.cpy().scl(delta));
 			position.add(velocity.cpy().scl(delta));
 		}
 
@@ -101,10 +106,8 @@ public class Player extends GameObject
 
 	public void flap()
 	{
-		if (isAlive)
-		{
+		if (!atCeiling)
 			velocity.y = -100;
-		}
 	}
 
 	public void die()
@@ -142,13 +145,12 @@ public class Player extends GameObject
 	public void startFlapping()
 	{
 		flapping = true;
-
 	}
 
 	public void stopFlapping()
 	{
 		flapping = false;
-
+		atCeiling = false;
 	}
 
 }
