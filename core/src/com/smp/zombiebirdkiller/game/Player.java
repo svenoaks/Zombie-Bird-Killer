@@ -1,5 +1,6 @@
 package com.smp.zombiebirdkiller.game;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Circle;
 import static com.smp.zombiebirdkiller.assets.Constants.*;
 import com.badlogic.gdx.math.Vector2;
@@ -7,6 +8,7 @@ import com.badlogic.gdx.math.Vector2;
 public class Player extends GameObject
 {
 	private static final int ACCELERATION_GRAVITY_Y = 180;
+	private static final int COORDINATE_CEILING_Y = 0;
 
 	private Vector2 acceleration;
 
@@ -43,21 +45,19 @@ public class Player extends GameObject
 		{
 			velocity.y = 200;
 		}
-		if (position.y < 0)
+		if (position.y + velocity.cpy().scl(delta).y < COORDINATE_CEILING_Y)
 		{
-			position.y = 0;
+			position.y = COORDINATE_CEILING_Y;
 			velocity.y = 0;
-			atCeiling = true;
 		}
-		else if (position.y > COORDINATE_GRASS_LOCATION_Y - height)
+		else if (position.y + velocity.cpy().scl(delta).y > COORDINATE_GRASS_LOCATION_Y - height)
 		{
 			position.y = COORDINATE_GRASS_LOCATION_Y - height;
 			velocity.y = 0;
 		}
 		else
 		{
-			if (!atCeiling) 
-				velocity.add(acceleration.cpy().scl(delta));
+		    velocity.add(acceleration.cpy().scl(delta));
 			position.add(velocity.cpy().scl(delta));
 		}
 
@@ -150,7 +150,6 @@ public class Player extends GameObject
 	public void stopFlapping()
 	{
 		flapping = false;
-		atCeiling = false;
 	}
 
 }

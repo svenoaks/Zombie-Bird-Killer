@@ -40,15 +40,15 @@ public class InputHandler implements InputProcessor
 	@Override
 	public boolean keyDown(int keycode)
 	{		
-	    player.startFlapping();
-		return true;
+	    
+		return false;
 	}
 
 	@Override
 	public boolean keyUp(int keycode)
 	{
-		player.stopFlapping();
-		return true;
+		
+		return false;
 	}
 
 	@Override
