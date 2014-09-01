@@ -72,7 +72,11 @@ public class GameRenderer
 	// TODO magic numbers
 	private void drawPlayer(float runTime)
 	{
-
+		batcher.draw(helicopter, player.getX(), player.getY(),
+				player.getWidth() / 2.0f, player.getHeight() / 2.0f,
+				player.getWidth(), player.getHeight(), 1, 1, player.getRotation());
+		
+		/*
 		if (player.shouldntFlap())
 		{
 			batcher.draw(playerMid, player.getX(), player.getY(),
@@ -87,7 +91,7 @@ public class GameRenderer
 					player.getHeight() / 2.0f, player.getWidth(), player.getHeight(),
 					1, 1, player.getRotation());
 		}
-
+		*/
 	}
 
 	public void render(float delta, float runTime)
@@ -109,9 +113,11 @@ public class GameRenderer
 		shapeRenderer.setColor(147 / 255.0f, 80 / 255.0f, 27 / 255.0f, 1);
 		shapeRenderer.rect(0, COORDINATE_DIRT_LOCATION_Y, DIMENSION_GAME_WIDTH, DIMENSION_DIRT_HEIGHT);
 		
+		/*
 		shapeRenderer.setColor(147 / 255.0f, 80 / 255.0f, 27 / 255.0f, 1);
 		shapeRenderer.rect(player.getX(), player.getY(), player.getWidth(), player.getHeight());
-
+		*/
+		
 		shapeRenderer.end();
 
 		batcher.begin();

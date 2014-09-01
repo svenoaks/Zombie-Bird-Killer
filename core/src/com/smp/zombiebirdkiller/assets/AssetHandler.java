@@ -10,7 +10,9 @@ public class AssetHandler
 	private static AssetManager manager;
 	
 	private static Texture mainTexture;
+	private static Texture helicopterTexture;
 	
+	public static TextureRegion helicopter;
 	public static TextureRegion playerMid, playerDown, playerUp;
 	public static TextureRegion background;
 	public static TextureRegion grass;
@@ -48,13 +50,16 @@ public class AssetHandler
 	private static void assignTextures()
 	{
 		mainTexture = manager.get("data/texture_main.png", Texture.class);
+		helicopterTexture = manager.get("data/helicopter.png", Texture.class);
 		
+		helicopter = new TextureRegion(helicopterTexture);
 		playerMid = new TextureRegion(mainTexture, 153, 0, 17, 12);
 		playerDown = new TextureRegion(mainTexture, 136, 0, 17, 12);
 		playerUp = new TextureRegion(mainTexture, 170, 0, 17, 12);
 		background = new TextureRegion(mainTexture, 0, 0, 136, 43);
 		grass = new TextureRegion(mainTexture, 0, 43, 143, 11);
 		
+		helicopter.flip(false, true);
 		playerMid.flip(false, true);
 		playerDown.flip(false, true);
 		playerUp.flip(false, true);
@@ -84,6 +89,7 @@ public class AssetHandler
 	private static void loadTextures()
 	{
 		manager.load("data/texture_main.png", Texture.class);	
+		manager.load("data/helicopter.png", Texture.class);
 	}
 
 	

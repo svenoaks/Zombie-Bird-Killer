@@ -9,6 +9,15 @@ public class Player extends GameObject
 {
 	private static final int ACCELERATION_GRAVITY_Y = 180;
 	private static final int COORDINATE_CEILING_Y = 0;
+	
+	private static final int VELOCITY_MAXIMUM_Y = 35;
+	private static final int ROTATION_MAXIMUM_DOWN = 10;
+	private static final int ROTATION_MAXIMUM_UP = -18;
+	private static final int ROTATION_ADDER_FALLING = 35;
+	private static final int ROTATION_ADDER_RISING = 150;
+	
+	private final int WIDTH = 33;
+	private final int HEIGHT = 12;
 
 	private Vector2 acceleration;
 
@@ -18,15 +27,15 @@ public class Player extends GameObject
 
 	private Circle boundingCircle;
 
-	private int flapCycle;
 	private boolean flapping;
 	private boolean atCeiling;
 
-	public Player(float x, float y, float width, float height)
+	public Player(float x, float y)
 	{
-		this.width = width;
-		this.height = height;
 		this.originalY = y;
+		this.width = WIDTH;
+		this.height = HEIGHT;
+		
 		position = new Vector2(x, y);
 		velocity = new Vector2(0, 0);
 		acceleration = new Vector2(0, ACCELERATION_GRAVITY_Y);
@@ -41,9 +50,9 @@ public class Player extends GameObject
 		if (flapping)
 			flap();
 
-		if (velocity.y > 200)
+		if (velocity.y > VELOCITY_MAXIMUM_Y)
 		{
-			velocity.y = 200;
+			velocity.y = VELOCITY_MAXIMUM_Y;
 		}
 		if (position.y + velocity.cpy().scl(delta).y < COORDINATE_CEILING_Y)
 		{
@@ -68,25 +77,23 @@ public class Player extends GameObject
 		// Rotate counterclockwise
 		if (velocity.y < 0)
 		{
-			rotation -= 600 * delta;
+			rotation -= ROTATION_ADDER_RISING * delta;
 
-			if (rotation < -50)
+			if (rotation < ROTATION_MAXIMUM_UP)
 			{
-				rotation = -50;
+				rotation = ROTATION_MAXIMUM_UP;
 			}
 		}
 
 		// Rotate clockwise
-		if (isFalling() || !isAlive)
+		if (isFalling())
 		{
-			rotation += 200 * delta;
-			if (rotation > 75)
+			rotation += ROTATION_ADDER_FALLING * delta;
+			if (rotation > ROTATION_MAXIMUM_DOWN)
 			{
-				rotation = 75;
+				rotation = ROTATION_MAXIMUM_DOWN;
 			}
-
 		}
-
 	}
 
 	public void updateReady(float runTime)
@@ -96,7 +103,7 @@ public class Player extends GameObject
 
 	public boolean isFalling()
 	{
-		return velocity.y > 110;
+		return velocity.y > 5;
 	}
 
 	public boolean shouldntFlap()
@@ -107,7 +114,7 @@ public class Player extends GameObject
 	public void flap()
 	{
 		if (!atCeiling)
-			velocity.y = -100;
+			velocity.y = -35;
 	}
 
 	public void die()
