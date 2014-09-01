@@ -5,7 +5,7 @@ import com.badlogic.gdx.math.Circle;
 import static com.smp.zombiebirdkiller.assets.Constants.*;
 import com.badlogic.gdx.math.Vector2;
 
-public class Player extends GameObject
+public class Helicopter extends GameObject
 {
 	private static final int ACCELERATION_GRAVITY_Y = 180;
 	private static final int COORDINATE_CEILING_Y = 0;
@@ -30,7 +30,7 @@ public class Player extends GameObject
 	private boolean flapping;
 	private boolean atCeiling;
 
-	public Player(float x, float y)
+	public Helicopter(float x, float y)
 	{
 		this.originalY = y;
 		this.width = WIDTH;

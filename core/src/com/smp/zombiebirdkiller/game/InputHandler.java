@@ -9,7 +9,7 @@ import com.badlogic.gdx.InputProcessor;
 
 public class InputHandler implements InputProcessor
 {
-	private Player player;
+	private Helicopter player;
 	private GameWorld world;
 
 	//private List<SimpleButton> menuButtons;

@@ -6,7 +6,7 @@ public class GameWorld
 {
 	private static final int MAX_PLAYER_SHOTS = 10;
 
-	private Player player;
+	private Helicopter player;
 	//private ScrollHandler scroller;
 	private Rectangle ground;
 	private Rectangle gameRectangle;
@@ -32,7 +32,7 @@ public class GameWorld
 		//currentState = GameState.MENU;
 		this.midPointY = midPointY;
 		this.gameRectangle = gameRectangle;
-		player = new Player(33, midPointY - 5);
+		player = new Helicopter(33, midPointY - 5);
 		// The grass should start 66 pixels below the midPointY
 		//scroller = new ScrollHandler(this, midPointY + 66);
 		ground = new Rectangle(0, midPointY + 66, 137, 11);
@@ -169,7 +169,7 @@ public class GameWorld
 		}
 	}
 	*/
-	public Player getPlayer()
+	public Helicopter getPlayer()
 	{
 		return player;
 

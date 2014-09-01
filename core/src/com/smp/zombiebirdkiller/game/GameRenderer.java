@@ -24,7 +24,7 @@ public class GameRenderer
 	private SpriteBatch batcher;
 
 	// Game Objects
-	private Player player;
+	private Helicopter player;
 
 	// Numerical values
 
